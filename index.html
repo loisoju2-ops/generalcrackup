@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Crack Up Comedy events calendar for Calabar and Detroit.">
+  <title>Events | Crack Up Comedy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== RESET & GLOBAL ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #000000;
+      color: #ffffff;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ===== SITE HEADER ===== */
+    .site-header {
+      background: #121212;
+      border-bottom: 1px solid #242424;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      padding: 0;
+    }
+
+    .header-main {
+      position: relative;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      background: #0D0D0D;
+    }
+
+    .nav-stack {
+      width: 100%;
+    }
+
+    .header-utility-nav,
+    .header-primary-nav {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      position: relative;
+    }
+
+    /* ===== TOP NAV (UTILITY) ===== */
+    .header-utility-nav {
+      border-bottom: 1px solid #242424;
+      font-size: 0.75rem;
+      color: #a9a9a9;
+      justify-content: space-between;
+    }
+
+    /* ===== SECOND NAV (PRIMARY) ===== */
+    .header-primary-nav {
+      min-height: 58px;
+      gap: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: #1a1a1a;
+      width: 100%;
+      justify-content: flex-start;
+      align-items: center;
+      position: relative;
+    }
+
+    /* ===== BRAND TITLE CENTERED IN TOP NAV ===== */
+    .brand-title-in-nav {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .brand-title-in-nav .brand-name-main {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.6px;
+      line-height: 1.1;
+      white-space: nowrap;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Spacer to keep utility links right-aligned */
+    .utility-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: auto;
+    }
+
+    .header-utility-nav a,
+    .header-primary-nav a {
+      color: #cccccc;
+      white-space: nowrap;
+      transition: color 0.15s ease, opacity 0.15s ease;
+    }
+
+    .header-utility-nav a:hover,
+    .header-primary-nav a:hover {
+      color: #ffffff;
+    }
+
+    .nav-divider {
+      color: #3b3b3b;
+      font-weight: 300;
+      user-select: none;
+    }
+
+    /* ===== FLOATING LOGO ===== */
+    .header-logo-float {
+      position: absolute;
+      left: 5%;
+      top: 55%;
+      transform: translate(-50%, -50%);
+      z-index: 150;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      overflow: visible;
+      gap: 0;
+      white-space: nowrap;
+    }
+
+    .header-logo {
+      width: 200px;
+      height: 100px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+      max-width: none;
+      max-height: none;
+    }
+
+    /* ===== LOCATION DROPDOWN (in primary nav) ===== */
+    .nav-location-wrapper {
+      position: relative;
+      margin-left: 7rem;
+      flex-shrink: 0;
+    }
+
+    .nav-location-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #cccccc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid #333333;
+      background: transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .nav-location-btn i.fa-map-marker-alt {
+      font-size: 1rem;
+      color: #f6c928;
+    }
+
+    .nav-location-btn .location-text {
+      color: #dddddd;
+    }
+
+    .nav-location-btn .caret {
+      font-size: 0.65rem;
+      color: #888888;
+      transition: transform 0.2s ease;
+      margin-left: 0.15rem;
+    }
+
+    .nav-location-btn:hover {
+      border-color: #f6c928;
+      color: #f6c928;
+    }
+
+    .nav-location-btn:hover .location-text {
+      color: #f6c928;
+    }
+
+    .nav-location-btn.open {
+      border-color: #f6c928;
+    }
+
+    .nav-location-btn.open .caret {
+      transform: rotate(180deg);
+    }
+
+    .location-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 180px;
+      background: #1a1a1a;
+      border: 1px solid #292929;
+      border-radius: 12px;
+      padding: 0.4rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+      z-index: 300;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    .location-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .location-dropdown button {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      width: 100%;
+      text-align: left;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #dddddd;
+      transition: background 0.15s, color 0.15s;
+      font-family: inherit;
+    }
+
+    .location-dropdown button i {
+      font-size: 0.85rem;
+      color: #f6c928;
+      width: 16px;
+      text-align: center;
+    }
+
+    .location-dropdown button:hover {
+      background: #242424;
+      color: #ffffff;
+    }
+
+    .location-dropdown button.active {
+      background: #242424;
+      color: #f6c928;
+      font-weight: 700;
+    }
+
+    /* ===== SIGN IN PANEL (kept but removed from nav) ===== */
+    .signin-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 400;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .signin-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .signin-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: min(420px, 90vw);
+      background: #1a1a1a;
+      border: 1px solid #292929;
+      border-radius: 20px;
+      padding: 2rem;
+      z-index: 401;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .signin-panel.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .signin-panel h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .signin-panel .signin-subtitle {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      margin-bottom: 1.5rem;
+    }
+
+    .signin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .signin-form label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #cccccc;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+
+    .signin-form input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #333333;
+      background: #0d0d0d;
+      color: #ffffff;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    .signin-form input:focus {
+      outline: none;
+      border-color: #f6c928;
+    }
+
+    .signin-form input::placeholder {
+      color: #555555;
+    }
+
+    .signin-form button[type="submit"] {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      border-radius: 30px;
+      background: #f6c928;
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .signin-form button[type="submit"]:hover {
+      background: #e0b520;
+    }
+
+    .signin-panel .signin-footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #a0a0a0;
+      margin-top: 1rem;
+    }
+
+    .signin-panel .signin-footer a {
+      color: #f6c928;
+      font-weight: 600;
+    }
+
+    .signin-panel .signin-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .signin-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #242424;
+      border: 1px solid #333333;
+      color: #ffffff;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    .signin-close:hover {
+      border-color: #f6c928;
+      color: #f6c928;
+    }
+
+    /* ===== MOBILE HAMBURGER ===== */
+    .menu-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      color: #ffffff;
+      font-size: 1.4rem;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+      justify-self: end;
+    }
+
+    .menu-toggle:hover {
+      background: #242424;
+      border-color: #f6c928;
+    }
+
+    /* ===== MOBILE NAV OVERLAY ===== */
+    .mobile-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .mobile-nav-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(320px, 85vw);
+      height: 100dvh;
+      background: #0a0a0a;
+      border-left: 1px solid #242424;
+      padding: 1.5rem 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      overflow-y: auto;
+    }
+
+    .mobile-nav-panel.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-nav-header .brand {
+      font-size: 1.1rem;
+    }
+
+    .mobile-nav-close {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #151515;
+      border: 1px solid #2a2a2a;
+      color: #ffffff;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    .mobile-nav-close:hover {
+      border-color: #f6c928;
+      color: #f6c928;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .mobile-nav-links a {
+      display: block;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #dddddd;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .mobile-nav-links a:hover,
+    .mobile-nav-links a.active {
+      background: #1a1a1a;
+      color: #f6c928;
+    }
+
+    .mobile-nav-links a.active {
+      font-weight: 600;
+    }
+
+    .mobile-nav-divider {
+      height: 1px;
+      background: #242424;
+      margin: 0.5rem 0;
+    }
+
+    /* ===== MAIN EVENTS PAGE ===== */
+    .events-page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+      background: #121212;
+    }
+
+    .events-heading {
+      margin-bottom: 2rem;
+    }
+
+    .events-heading h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .events-heading h1 .city-highlight {
+      color: #f6c928;
+    }
+
+    .city-tabs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .city-tab {
+      padding: 0.5rem 1.4rem;
+      border-radius: 40px;
+      background: #1a1a1a;
+      border: 1px solid #333333;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .city-tab:hover {
+      background: #242424;
+      border-color: #f6c928;
+    }
+
+    .city-tab.active {
+      background: #f6c928;
+      border-color: #f6c928;
+      color: #000000;
+    }
+
+    /* ===== EVENT BLOCK LAYOUT ===== */
+    .event-block {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 2.5rem;
+    }
+
+    .event-block[data-event-location="Calabar"] {
+      background: #121212;
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      border: 1px solid #242424;
+    }
+
+    .event-list-column {
+      min-width: 0;
+    }
+
+    .selected-date-line {
+      margin-bottom: 1.5rem;
+    }
+
+    .selected-date-line h2 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+    }
+
+    .date-rule-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .date-rule {
+      flex: 1;
+      height: 1px;
+      background: #333333;
+    }
+
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* ===== EVENT CARDS ===== */
+    .event-card.cosm-event {
+      display: grid;
+      grid-template-columns: 100px 280px minmax(0, 1fr) 160px;
+      gap: 1.25rem;
+      align-items: center;
+      padding: 1rem 1.15rem;
+      min-height: 200px;
+      background: #1a1a1a;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .event-block[data-event-location="Calabar"] .event-card.cosm-event {
+      background: #1e1e1e;
+      border-color: #2f2f2f;
+    }
+
+    .event-card.cosm-event:hover {
+      border-color: #f6c928;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+    }
+
+    .event-date {
+      display: flex;
+      flex-direction: column;
+      gap: .15rem;
+      min-width: 100px;
+      color: #ffffff;
+    }
+
+    .event-date .weekday {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .event-date .day-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .event-date .time {
+      margin-top: .6rem;
+      font-size: .84rem;
+      color: #d0d0d0;
+      font-weight: 600;
+    }
+
+    .event-date .timezone {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #f6c928;
+      text-transform: uppercase;
+    }
+
+    .event-flyer {
+      width: 280px;
+      height: 280px;
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0a0a0a;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      display: block;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .event-flyer:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(246,201,40,.18);
+    }
+
+    .event-flyer img,
+    .event-flyer svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .event-copy h3 {
+      font-size: 1.2rem;
+      line-height: 1.15;
+      margin-bottom: .4rem;
+      color: #ffffff;
+    }
+
+    .event-copy .event-meta {
+      font-size: .85rem;
+      color: #d0d0d0;
+      margin-bottom: .4rem;
+    }
+
+    .event-copy p {
+      font-size: .85rem;
+      color: #d0d0d0;
+      margin-bottom: .6rem;
+    }
+
+    .event-copy .event-tag {
+      display: inline-block;
+      margin-top: .2rem;
+      padding: .25rem .5rem;
+      border-radius: 6px;
+      background: #a855f7;
+      color: #ffffff;
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    /* ===== SOCIAL SHARE BLOCK — smaller icons, single tab with background ===== */
+    .event-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      flex-wrap: wrap;
+      background: #1e1e1e;
+      border: 1px solid #2f2f2f;
+      border-radius: 20px;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .event-social .share-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: #a0a0a0;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-right: 0.15rem;
+    }
+
+    .event-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: transparent;
+      color: #cccccc;
+      font-size: 0.65rem;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .event-social a:hover {
+      transform: translateY(-1px);
+    }
+
+    .event-social a.fb:hover { background: #1877f2; color: #fff; }
+    .event-social a.tw:hover { background: #1da1f2; color: #fff; }
+    .event-social a.ig:hover { background: #e4405f; color: #fff; }
+    .event-social a.tt:hover { background: #000000; color: #fff; border: 1px solid #555; }
+
+    .event-actions {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      align-self: center;
+    }
+
+    .event-action {
+      display: inline-block;
+      text-align: center;
+      padding: .5rem 1rem;
+      border-radius: 30px;
+      font-size: .75rem;
+      font-weight: 700;
+      border: 1px solid #555555;
+      background: transparent;
+      color: #ffffff;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .event-action.primary {
+      background: #2f80ed;
+      border-color: #2f80ed;
+      color: #ffffff;
+    }
+
+    .event-action.primary:hover {
+      background: #1a6cd4;
+      border-color: #1a6cd4;
+    }
+
+    .event-action.details {
+      background: #222222;
+      border-color: #444444;
+      color: #ffffff;
+    }
+
+    .event-action.details:hover {
+      border-color: #f6c928;
+    }
+
+    .event-action.livestream {
+      background: #f6c928;
+      border-color: #f6c928;
+      color: #000000;
+    }
+
+    .event-action.livestream:hover {
+      background: #e0b520;
+      border-color: #e0b520;
+    }
+
+    .event-action.gate-free {
+      background: transparent;
+      border: 1px solid #4ade80;
+      color: #4ade80;
+    }
+
+    .event-action.gate-free:hover {
+      background: rgba(74, 222, 128, 0.08);
+      border-color: #4ade80;
+      color: #4ade80;
+    }
+
+    .event-action.comedy-night {
+      background: transparent;
+      border: 1px solid #a855f7;
+      color: #a855f7;
+    }
+
+    .event-action.comedy-night:hover {
+      background: rgba(168, 85, 247, 0.08);
+    }
+
+    .event-action.sold-out {
+      background: #e74c3c;
+      border-color: #e74c3c;
+      color: #ffffff;
+    }
+
+    .event-action.sold-out:hover {
+      background: #c0392b;
+      border-color: #c0392b;
+    }
+
+    .event-action.snacks {
+      background: #1a1a1a;
+      border-color: #a855f7;
+      color: #d8b4fe;
+    }
+
+    .event-action.snacks:hover {
+      background: #2a1a3a;
+    }
+
+    .event-action.ticket-free {
+      background: #1a1a1a;
+      border-color: #4ade80;
+      color: #4ade80;
+    }
+
+    .event-action.ticket-free:hover {
+      background: #0a2a1a;
+    }
+
+    .event-action:hover {
+      transform: translateY(-1px);
+    }
+
+    .event-details-small {
+      font-size: 0.75rem;
+      color: #a0a0a0;
+      margin-top: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .event-details-small .highlight {
+      color: #f6c928;
+      font-weight: 700;
+    }
+
+    .event-details-small .free-tag {
+      color: #f6c928;
+      font-weight: 700;
+    }
+
+    /* ===== CALENDAR PANEL ===== */
+    .calendar-panel {
+      background: #1a1a1a;
+      border-radius: 20px;
+      padding: 1.5rem 1.25rem 1.25rem;
+      border: 1px solid #292929;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+      position: sticky;
+      top: 90px;
+    }
+
+    .calendar-top {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .calendar-top h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0.2rem;
+      flex: 1;
+      text-align: center;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+    }
+
+    .icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: #242424;
+      font-size: 1.2rem;
+      color: #ffffff;
+      transition: background 0.15s;
+      border: none;
+    }
+
+    .icon-btn:hover {
+      background: #333333;
+    }
+
+    .today-btn {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      background: #242424;
+      color: #ffffff;
+      transition: background 0.15s;
+      border: none;
+      margin-left: auto;
+    }
+
+    .today-btn:hover {
+      background: #333333;
+    }
+
+    .calendar-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #bdbdbd;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 0.4rem;
+      padding: 0 0.1rem;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+
+    .calendar-grid .day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 10px;
+      color: #ffffff;
+      transition: background 0.1s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+    }
+
+    .calendar-grid .day:hover {
+      background: #2a2a2a;
+    }
+
+    .calendar-grid .day.other-month {
+      color: #555555;
+      cursor: default;
+    }
+
+    .calendar-grid .day.past-date {
+      color: #4d4d4d;
+      opacity: 0.35;
+    }
+
+    .calendar-grid .day.future-date {
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    .calendar-grid .day.event-day,
+    .calendar-grid .day.selected {
+      background: #2f80ed;
+      border-color: #2f80ed;
+      color: #ffffff;
+      font-weight: 800;
+      opacity: 1;
+      box-shadow: 0 0 0 1px rgba(47, 128, 237, 0.2);
+    }
+
+    .calendar-grid .day.today {
+      font-weight: 700;
+      color: #2f80ed;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .calendar-grid .day.event-day:hover,
+    .calendar-grid .day.selected:hover {
+      background: #2f80ed;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 2.5rem;
+      border-top: 1px solid #242424;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem 2rem;
+      align-items: start;
+      font-size: 0.9rem;
+      background: #121212;
+    }
+
+    .footer-brand {
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.3px;
+      color: #ffffff;
+    }
+
+    footer p {
+      color: #ffffff;
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .footer-links a:hover {
+      color: #f6c928;
+    }
+
+    footer small {
+      grid-column: 1 / -1;
+      color: #888888;
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer-extra {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      color: #ffffff;
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    .footer-extra a:hover {
+      color: #f6c928;
+    }
+
+    .chat-bubble {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 56px;
+      height: 56px;
+      background: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 300;
+      transition: transform 0.2s;
+    }
+
+    .chat-bubble:hover {
+      transform: scale(1.05);
+    }
+
+    .chat-bubble i {
+      font-size: 1.5rem;
+      color: #333333;
+    }
+
+    .chat-bubble .notification-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #e74c3c;
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== RESPONSIVE ===== */
+
+    @media (max-width: 1200px) {
+      .event-card.cosm-event {
+        grid-template-columns: 90px 240px minmax(0, 1fr) 140px;
+      }
+      .event-flyer {
+        width: 240px;
+        height: 240px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .event-block {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .calendar-panel {
+        position: static;
+      }
+      .event-card.cosm-event {
+        grid-template-columns: 90px 220px minmax(0, 1fr);
+      }
+      .event-flyer {
+        width: 220px;
+        height: 220px;
+      }
+      .event-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        padding: 0;
+      }
+
+      .header-main {
+        padding: 0 1.25rem;
+      }
+
+      .header-logo-float {
+        display: none;
+      }
+
+      .brand-title-in-nav .brand-name-main {
+        font-size: 1.2rem;
+      }
+
+      .header-utility-nav {
+        min-height: 38px;
+        padding-left: 0;
+        padding-right: 48px;
+        gap: 0.9rem;
+        font-size: 0.7rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .header-utility-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .header-primary-nav {
+        min-height: 52px;
+        padding-left: 0;
+        padding-right: 48px;
+        gap: 1.1rem;
+        font-size: 0.78rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+        scrollbar-width: none;
+      }
+
+      .header-primary-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-location-wrapper {
+        margin-left: 0;
+      }
+
+      .menu-toggle {
+        display: flex;
+        position: absolute;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 120;
+      }
+
+      .events-page {
+        padding: 1.5rem 1.25rem 2rem;
+      }
+
+      .events-heading h1 {
+        font-size: 1.8rem;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1.25rem;
+        gap: 1rem;
+      }
+
+      .footer-links {
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .event-card.cosm-event {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .event-flyer {
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        aspect-ratio: 1/1;
+        justify-self: start;
+      }
+
+      .event-actions {
+        flex-direction: column;
+      }
+
+      .event-action {
+        white-space: normal;
+      }
+
+      .events-heading h1 {
+        font-size: 1.5rem;
+      }
+
+      .city-tab {
+        padding: 0.4rem 1rem;
+        font-size: 0.78rem;
+      }
+
+      .chat-bubble {
+        bottom: 1rem;
+        right: 1rem;
+        width: 48px;
+        height: 48px;
+      }
+
+      .chat-bubble i {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .events-heading h1 {
+        font-size: 1.3rem;
+      }
+
+      .brand-title-in-nav .brand-name-main {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== SITE HEADER ===== -->
+  <header class="site-header">
+    <div class="header-main">
+      <!-- Floating logo (separate from location) -->
+      <div class="header-logo-float">
+        <img class="header-logo" src="Images\ChatGPT Image Jun 26, 2026, 01_02_48 PM.png" alt="Crack Up Comedy Logo" style="background: transparent;">
+      </div>
+
+      <div class="nav-stack">
+        <!-- TOP NAV (UTILITY) -->
+        <nav class="header-utility-nav" aria-label="Utility navigation">
+          <div class="brand-title-in-nav"></div>
+          <div class="utility-links">
+            <a href="index.html">Crack Up Venues</a>
+            <span class="nav-divider">|</span>
+            <a href="community.html">Community</a>
+          </div>
+        </nav>
+
+        <!-- SECOND NAV (PRIMARY) — now contains centered title + subtitle -->
+        <nav class="header-primary-nav" aria-label="Main navigation">
+          <!-- Centered brand title & subtitle -->
+          <div class="brand-title-in-nav">
+            <span class="brand-name-main">CRACK UP COMEDY</span>
+            <span style="font-size: 0.75rem; font-style: italic; color: #f6c928; font-weight: 500; letter-spacing: 0.3px; margin-top: 2px;">African Comedy in your cities</span>
+          </div>
+
+          <!-- Location dropdown (separated from the logo) -->
+          <div class="nav-location-wrapper" id="locationWrapper">
+            <button class="nav-location-btn" id="locationToggle" type="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-map-marker-alt"></i>
+              <span class="location-text" id="locationText">Calabar</span>
+              <i class="fas fa-chevron-down caret"></i>
+            </button>
+
+            <div class="location-dropdown" id="locationDropdown" role="menu">
+              <button type="button" data-location="Calabar" class="active" role="menuitem">
+                <i class="fas fa-city"></i> Calabar
+              </button>
+              <button type="button" data-location="Detroit" role="menuitem">
+                <i class="fas fa-city"></i> Detroit
+              </button>
+            </div>
+          </div>
+
+          <!-- Sign in button removed as requested -->
+        </nav>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <!-- ===== SIGN IN PANEL (kept hidden, no trigger) ===== -->
+  <div class="signin-overlay" id="signinOverlay"></div>
+  <div class="signin-panel" id="signinPanel">
+    <button class="signin-close" id="signinClose" aria-label="Close sign in">&times;</button>
+    <h2>Welcome Back</h2>
+    <p class="signin-subtitle">Sign in to your Crack Up Comedy account</p>
+
+    <form class="signin-form" onsubmit="event.preventDefault(); alert('Sign in functionality coming soon!');">
+      <div>
+        <label for="signin-email">Email Address</label>
+        <input type="email" id="signin-email" placeholder="you@example.com" required>
+      </div>
+      <div>
+        <label for="signin-password">Password</label>
+        <input type="password" id="signin-password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
+
+    <p class="signin-footer">
+      Don't have an account? <a href="register.html">Register here</a>
+    </p>
+  </div>
+
+  <!-- ===== MOBILE NAV OVERLAY ===== -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+      <div class="mobile-nav-header">
+        <span class="brand">Menu</span>
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
+      </div>
+
+      <nav class="mobile-nav-links">
+        <a class="active" href="#">All Events</a>
+        <a href="community.html">Join Membership</a>
+        <a href="register.html">Register</a>
+        <div class="mobile-nav-divider"></div>
+      </nav>
+    </div>
+  </div>
+
+  <main class="events-page">
+    <!-- Heading + city tabs -->
+    <section class="events-heading">
+      <h1 id="events-title">Crack Up Comedy <span class="city-highlight" id="cityName">Calabar</span></h1>
+
+      <div class="city-tabs" role="tablist" aria-label="Event cities">
+        <button class="city-tab" data-location="All Cities">All Cities</button>
+        <button class="city-tab active" data-location="Calabar" type="button" role="tab" aria-selected="true">Calabar</button>
+        <button class="city-tab" data-location="Detroit" type="button" role="tab" aria-selected="false">Detroit</button>
+      </div>
+    </section>
+
+    <!-- ===== EVENT BLOCK: Calabar ===== -->
+    <section class="event-block" data-event-block="2026-10-09" data-event-location="Calabar">
+      <div class="event-list-column">
+        <div class="selected-date-line">
+          <div class="date-rule-row">
+            <span class="selectedDateLabel">Friday, October 9th</span>
+            <span class="date-rule" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="event-list">
+          <article class="event-card cosm-event" data-event-date="2026-10-09" data-event-location="Calabar">
+            <div class="event-date">
+              <span class="weekday">Fri</span>
+              <span class="day-number">Oct 9</span>
+              <span class="time">8:00 PM</span>
+              <span class="timezone">Nigerian Time</span>
+            </div>
+            <a class="event-flyer" href="events.html" target="_blank" rel="noopener noreferrer" aria-label="View Crack Up Comedy Live flyer details">
+              <img src="Images\363E1F8F-C836-4BE6-B5A8-104AC787D835.png" alt="Crack Up Comedy Live flyer">
+            </a>
+            <div class="event-copy">
+              <!-- Event meta and description removed as requested -->
+              <h3>Crack Up Comedy Live</h3>
+
+              <!-- Social media share buttons — smaller, single tab with background -->
+              <div class="event-social">
+               
+                <a href="#" class="fb" aria-label="Share on Facebook" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="tw" aria-label="Share on Twitter" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="ig" aria-label="Share on Instagram" title="Share on Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="tt" aria-label="Share on TikTok" title="Share on TikTok"><i class="fab fa-tiktok"></i></a>
+              </div>
+
+              <!-- Comedy Night tag (purple, transparent background, purple border) -->
+              <span class="event-tag" style="background: transparent; border: 1px solid #a855f7; color: #a855f7; padding: .25rem .5rem; border-radius: 6px; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; display: inline-block; margin-top: .5rem;">Comedy Night</span>
+
+              <!-- Updated details: DJ Sprada first, then snacks -->
+              <div class="event-details-small" style="margin-top: .6rem;">
+                <span class="highlight">DJ Sprada starts at 8:00 PM</span> · Snacks and drinks available for purchase
+              </div>
+            </div>
+            <div class="event-actions">
+              <a class="event-action primary" href="register.html">Find Tickets</a>
+              <a class="event-action livestream" href="#">Live Stream</a>
+              <!-- Gate Free button: transparent bg, green text, 1px green border -->
+              <a class="event-action gate-free" href="#">Gate Free</a>
+              <!-- Comedy Night button: transparent bg, purple text, 1px purple border -->
+             
+              <a class="event-action details" href="events.html">Events Details</a>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Calendar Panel -->
+      <aside class="calendar-panel" aria-label="Events calendar for October 2026">
+        <div class="calendar-top">
+          <button class="icon-btn prevMonth" type="button" aria-label="Previous month">‹</button>
+          <h2 class="calendarMonth">October 2026</h2>
+          <button class="icon-btn nextMonth" type="button" aria-label="Next month">›</button>
+          <button class="today-btn" type="button">Today</button>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+        </div>
+        <div class="calendar-grid"></div>
+      </aside>
+    </section>
+
+    <!-- ===== EVENT BLOCK: Detroit (hidden by default) ===== -->
+    <section class="event-block" data-event-block="2026-11-27" data-event-location="Detroit" style="display:none;">
+      <div class="event-list-column">
+        <div class="selected-date-line">
+          <div class="date-rule-row">
+            <span class="selectedDateLabel">Friday, November 27th</span>
+            <span class="date-rule" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="event-list">
+          <article class="event-card cosm-event" data-event-date="2026-11-27" data-event-location="Detroit">
+            <div class="event-date">
+              <span class="weekday">Fri</span>
+              <span class="day-number">Nov 27</span>
+              <span class="time">8:00 PM</span>
+              <span class="timezone">EST</span>
+            </div>
+            <a class="event-flyer" href="events2.html" target="_blank" rel="noopener noreferrer" aria-label="View Crack Up Comedy Detroit flyer details">
+              <div style="width:100%; height:100%; background: #1a1a1a; display:flex; flex-direction:column; align-items:center; justify-content:center; border: 2px dashed #444; border-radius: 12px; padding: 1rem; text-align:center;">
+               <img src="Images\ChatGPT Image Sep 30, 2026, 01_47_21 PM.png"> 
+ 
+
+              </div>
+            </a>
+            <div class="event-copy">
+              <h3>Crack Up Comedy</h3>
+              <div class="event-social">
+                <span class="share-label">Share</span>
+                <a href="#" class="fb" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="tw" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="ig" aria-label="Share on Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="tt" aria-label="Share on TikTok"><i class="fab fa-tiktok"></i></a>
+              </div>
+              <span class="event-tag" style="background: transparent; border: 1px solid #a855f7; color: #a855f7; padding: .25rem .5rem; border-radius: 6px; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; display: inline-block; margin-top: .5rem;">Comedy Night</span>
+              <div class="event-details-small" style="margin-top: .6rem;">
+                <span class="highlight">DJ Tunji starts at 8:00 PM</span> · Snacks and drinks available for purchase
+              </div>
+            </div>
+            <div class="event-actions">
+              <a class="event-action primary" href="register.html">Find Tickets</a>
+              <a class="event-action livestream" href="#">Live Stream</a>
+              <a class="event-action gate-free" href="#">Gate Free</a>
+             
+              <a class="event-action details" href="events.html">Events Details</a>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="calendar-panel">
+        <div class="calendar-top">
+          <button class="icon-btn prevMonth" type="button" aria-label="Previous month">‹</button>
+          <h2 class="calendarMonth">November 2026</h2>
+          <button class="icon-btn nextMonth" type="button" aria-label="Next month">›</button>
+          <button class="today-btn" type="button">Today</button>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+        </div>
+        <div class="calendar-grid"></div>
+      </aside>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div>
+      <div class="brand footer-brand">CRACK UP COMEDY</div>
+      <p>Live comedy. Big moments. Unforgettable experiences.</p>
+      <div class="footer-extra">
+        <a href="#">Become Sponsor</a>
+        <span style="color:#555;">|</span>
+        <a href="#">Advertise</a>
+        <span style="color:#555;">|</span>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="#">Events</a>
+      <a href="#">Calabar</a>
+      <a href="#">Detroit</a>
+      <a href="#">About</a>
+    </div>
+    <small>© 2026 Crack Up Comedy. All rights reserved.</small>
+  </footer>
+
+  <script>
+    (() => {
+      // ===== MOBILE NAV SLIDE IN/OUT =====
+      const menuToggle = document.querySelector('.menu-toggle');
+      const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+      const mobileNavPanel = document.getElementById('mobileNavPanel');
+      const mobileNavClose = document.getElementById('mobileNavClose');
+
+      function openMobileNav() {
+        mobileNavOverlay.classList.add('open');
+        mobileNavPanel.classList.add('open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('no-scroll');
+      }
+
+      function closeMobileNav() {
+        mobileNavOverlay.classList.remove('open');
+        mobileNavPanel.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('no-scroll');
+      }
+
+      if (menuToggle) menuToggle.addEventListener('click', openMobileNav);
+      if (mobileNavClose) mobileNavClose.addEventListener('click', closeMobileNav);
+      if (mobileNavOverlay) {
+        mobileNavOverlay.addEventListener('click', (e) => {
+          if (e.target === mobileNavOverlay) closeMobileNav();
+        });
+      }
+
+      document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+        link.addEventListener('click', closeMobileNav);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNavPanel && mobileNavPanel.classList.contains('open')) {
+          closeMobileNav();
+        }
+      });
+
+      // ===== LOCATION DROPDOWN =====
+      const locationToggle = document.getElementById('locationToggle');
+      const locationDropdown = document.getElementById('locationDropdown');
+      const locationText = document.getElementById('locationText');
+      const locationButtons = locationDropdown ? locationDropdown.querySelectorAll('button') : [];
+
+      function openLocationDropdown() {
+        locationDropdown.classList.add('open');
+        locationToggle.classList.add('open');
+        locationToggle.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeLocationDropdown() {
+        locationDropdown.classList.remove('open');
+        locationToggle.classList.remove('open');
+        locationToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      if (locationToggle) {
+        locationToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (locationDropdown.classList.contains('open')) {
+            closeLocationDropdown();
+          } else {
+            openLocationDropdown();
+          }
+        });
+      }
+
+      locationButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const loc = btn.dataset.location;
+          locationText.textContent = loc;
+          locationButtons.forEach(b => b.classList.toggle('active', b === btn));
+          closeLocationDropdown();
+          applyCity(loc);
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (locationDropdown && locationDropdown.classList.contains('open')) {
+          if (!e.target.closest('#locationWrapper')) {
+            closeLocationDropdown();
+          }
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && locationDropdown && locationDropdown.classList.contains('open')) {
+          closeLocationDropdown();
+        }
+      });
+
+      // ===== CITY TABS =====
+      const cityTabs = document.querySelectorAll('.city-tab');
+      const cityName = document.getElementById('cityName');
+
+      function applyCity(location) {
+        cityTabs.forEach(tab => {
+          tab.classList.toggle('active', tab.dataset.location === location);
+          tab.setAttribute('aria-selected', tab.dataset.location === location);
+        });
+
+        if (cityName) {
+          cityName.textContent = location === 'All Cities' ? 'Calabar' : location;
+        }
+
+        if (locationText && (location === 'Calabar' || location === 'Detroit')) {
+          locationText.textContent = location;
+          locationButtons.forEach(b => b.classList.toggle('active', b.dataset.location === location));
+        }
+
+        document.querySelectorAll('.event-block').forEach(block => {
+          const blockLocation = block.dataset.eventLocation;
+          if (location === 'All Cities') {
+            block.style.display = 'grid';
+          } else {
+            block.style.display = (blockLocation === location) ? 'grid' : 'none';
+          }
+        });
+
+        // Re-init calendar for the visible block to ensure correct month display
+        document.querySelectorAll('.event-block').forEach(block => {
+          if (block.style.display !== 'none') {
+            const grid = block.querySelector('.calendar-grid');
+            if (grid) {
+              // Calendar is already initialized; just trigger a re-render if needed
+              // The initCalendar function sets up event listeners, so we don't need to re-init
+            }
+          }
+        });
+      }
+
+      cityTabs.forEach(tab => {
+        tab.addEventListener('click', () => applyCity(tab.dataset.location));
+      });
+
+      // Initialize with Calabar
+      applyCity('Calabar');
+
+      // ===== CALENDAR LOGIC =====
+      const pad = n => String(n).padStart(2, '0');
+      const key = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
+      const ordinal = n => n % 100 >= 11 && n % 100 <= 13 ? `${n}th` : ({1:'st',2:'nd',3:'rd'}[n % 10] || 'th');
+
+      function formatMonth(date) {
+        return date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+      }
+
+      function formatSelectedDate(iso) {
+        const d = new Date(iso + 'T12:00:00');
+        return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long' }) + ` ${d.getDate()}${ordinal(d.getDate())}`;
+      }
+
+      function initCalendar(block) {
+        const eventDate = block.dataset.eventBlock;
+        const dateObj = new Date(eventDate + 'T12:00:00');
+
+        let viewDate = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
+
+        const grid = block.querySelector('.calendar-grid');
+        const monthLabel = block.querySelector('.calendarMonth');
+        const prevBtn = block.querySelector('.prevMonth');
+        const nextBtn = block.querySelector('.nextMonth');
+        const todayBtn = block.querySelector('.today-btn');
+
+        if (!grid || !monthLabel) return;
+
+        function render() {
+          const y = viewDate.getFullYear();
+          const m = viewDate.getMonth();
+          monthLabel.textContent = formatMonth(viewDate);
+
+          grid.innerHTML = '';
+          const first = new Date(y, m, 1).getDay();
+          const days = new Date(y, m + 1, 0).getDate();
+          const prevDays = new Date(y, m, 0).getDate();
+
+          // Previous month days
+          for (let i = first - 1; i >= 0; i--) {
+            const span = document.createElement('span');
+            span.className = 'day other-month';
+            span.textContent = prevDays - i;
+            grid.appendChild(span);
+          }
+
+          // Current month days
+          for (let d = 1; d <= days; d++) {
+            const btn = document.createElement('button');
+            const iso = key(y, m, d);
+            btn.type = 'button';
+            btn.className = 'day';
+            btn.textContent = d;
+            btn.dataset.date = iso;
+
+            if (iso < eventDate) {
+              btn.classList.add('past-date');
+            } else {
+              btn.classList.add('future-date');
+            }
+
+            if (iso === eventDate) {
+              btn.classList.add('event-day', 'selected');
+              btn.setAttribute('aria-current', 'date');
+            }
+
+            const today = new Date();
+            if (iso === key(today.getFullYear(), today.getMonth(), today.getDate())) {
+              btn.classList.add('today');
+            }
+
+            btn.addEventListener('click', () => {
+              if (iso === eventDate) {
+                const label = block.querySelector('.selectedDateLabel');
+                if (label) label.textContent = formatSelectedDate(eventDate);
+              }
+            });
+
+            grid.appendChild(btn);
+          }
+
+          // Next month days
+          const total = first + days;
+          const trailing = (7 - (total % 7)) % 7;
+          for (let d = 1; d <= trailing; d++) {
+            const span = document.createElement('span');
+            span.className = 'day other-month';
+            span.textContent = d;
+            grid.appendChild(span);
+          }
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1);
+            render();
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1);
+            render();
+          });
+        }
+
+        if (todayBtn) {
+          todayBtn.addEventListener('click', () => {
+            viewDate = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
+            render();
+          });
+        }
+
+        render();
+      }
+
+      document.querySelectorAll('.event-block').forEach(block => {
+        initCalendar(block);
+      });
+    })();
+  </script>
+</body>
+</html>
